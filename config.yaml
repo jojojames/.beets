@@ -1,0 +1,42 @@
+directory: J:/Music
+import:
+    copy: yes
+    write: yes
+    log: beetslog.txt
+    resume: yes
+    incremental: yes
+    duplicate_action: keep
+    quiet_fallback: asis
+art_filename: cover
+plugins: bpd convert web lastimport copyartifacts fetchart
+pluginpath: ~/beets/plugins
+languages: en
+ui:
+    color: yes
+match:
+    strong_rec_thresh: 0.10
+    ignored: missing_tracks
+
+paths:
+    default: $genre/$albumartist/$album/$track $title
+    singleton: Singletons/$artist - $title
+    comp: $genre/$album/$track $title
+    albumtype:soundtrack: Soundtracks/$album/$track $title
+
+convert:
+  auto: no
+  dest: J:/Transcodes
+  never_convert_lossy_files: yes
+  quiet: false
+  formats:
+    flac:
+      command: ffmpeg -i $source -y -vn -aq 2 $dest
+      extension: mp3
+
+web:
+  host: 127.0.0.1
+  port: 8337
+
+copyartifacts:
+  extensions: .*
+  print_ignored: yes
